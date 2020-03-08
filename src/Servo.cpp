@@ -15,44 +15,37 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "Servo.h"
+
 #include <Arduino.h>
+#include <HardwareTimer.h>
 
-void setup()
+HardwareTimer servo(3);
+
+void SERVO_init(void)
 {
-  pinMode(PC13, OUTPUT);
-  pinMode(PB14, INPUT);
-  pinMode(PB15, INPUT);
+    pinMode(SERVO_1, PWM);
+    pinMode(SERVO_2, PWM);
+    pinMode(SERVO_3, PWM);
+    pinMode(SERVO_4, PWM);
 
-  Serial1.begin(9600);
+    // Frequency for servo motors
+    servo.setPrescaleFactor(21);
 }
 
-void loop()
+uint8_t SERVO_getAngle(uint8_t servo)
 {
-  if (!digitalRead(PB14))
-  {
-    Serial1.println("Switch 1");
-  }
+    uint8_t value = 0;
+    return value;
+}
 
-  if (!digitalRead(PB15))
-  {
-    Serial1.println("Switch 2");
-  }
+void SERVO_setAngle(uint8_t servo, uint8_t angle)
+{
+    uint8_t value = map(angle, 0, 180, SERVO_PWM_MIN, SERVO_PWM_MAX);
+    pwmWrite(servo, value);
+}
 
-  return;
-
-  if (digitalRead(PB15))
-  {
-    digitalWrite(PC13, HIGH);
-  }
-  else
-  {
-    digitalWrite(PC13, LOW);
-  }
-
-  return;
-
-  digitalWrite(PC13, HIGH);
-  delay(1000);
-  digitalWrite(PC13, LOW);
-  delay(1000);
+void SERVO_off(uint8_t servo)
+{
+    pinMode(servo, INPUT);
 }

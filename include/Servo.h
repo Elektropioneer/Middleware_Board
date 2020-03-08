@@ -17,42 +17,20 @@
 
 #include <Arduino.h>
 
-void setup()
-{
-  pinMode(PC13, OUTPUT);
-  pinMode(PB14, INPUT);
-  pinMode(PB15, INPUT);
+#ifndef _SERVO_H_
+#define _SERVO_H_
 
-  Serial1.begin(9600);
-}
+#define SERVO_1         PB1
+#define SERVO_2         PB0
+#define SERVO_3         PA7
+#define SERVO_4         PA6
 
-void loop()
-{
-  if (!digitalRead(PB14))
-  {
-    Serial1.println("Switch 1");
-  }
+#define SERVO_PWM_MIN   2096
+#define SERVO_PWM_MAX   8096
 
-  if (!digitalRead(PB15))
-  {
-    Serial1.println("Switch 2");
-  }
+void SERVO_init(void);
+uint8_t SERVO_getAngle(uint8_t servo);
+void SERVO_setAngle(uint8_t servo, uint8_t angle);
+void SERVO_off(uint8_t servo);
 
-  return;
-
-  if (digitalRead(PB15))
-  {
-    digitalWrite(PC13, HIGH);
-  }
-  else
-  {
-    digitalWrite(PC13, LOW);
-  }
-
-  return;
-
-  digitalWrite(PC13, HIGH);
-  delay(1000);
-  digitalWrite(PC13, LOW);
-  delay(1000);
-}
+#endif // _SERVO_H_
