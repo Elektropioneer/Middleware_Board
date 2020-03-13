@@ -14,3 +14,14 @@
  * You should have received a copy of the GNU General Public License 
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
+#include "Switch.h"
+
+void SWITCH_init(void)
+{
+}
+
+uint8_t SWITCH_check(uint8_t sw)
+{
+    return 0;
+}

@@ -17,42 +17,37 @@
 
 #include <Arduino.h>
 
+#include "Communication.h"
+
+static void _rpiReceiveCallback(uint8_t *buffer, uint8_t size);
+
 void setup()
 {
+  COM_init();
   pinMode(PC13, OUTPUT);
-  pinMode(PB14, INPUT);
-  pinMode(PB15, INPUT);
 
-  Serial1.begin(9600);
+  COM_registerRpiCallback(_rpiReceiveCallback);
+
+  //Serial1.begin(9600);
 }
 
 void loop()
 {
-  if (!digitalRead(PB14))
+  COM_update();
+}
+
+static void _rpiReceiveCallback(uint8_t *buffer, uint8_t size)
+{
+  if (buffer[2] == 'b' && buffer[3] == 'c')         // Switch
   {
-    Serial1.println("Switch 1");
   }
-
-  if (!digitalRead(PB15))
+  else if (buffer[2] == 'm' && buffer[3] == 's')    // Servo
   {
-    Serial1.println("Switch 2");
   }
-
-  return;
-
-  if (digitalRead(PB15))
+  else if (buffer[2] == 'o' && buffer[3] == 'd')    // Odometry
   {
-    digitalWrite(PC13, HIGH);
   }
-  else
+  else if (buffer[2] == 'a' && buffer[3] == 'c')    // Actuator
   {
-    digitalWrite(PC13, LOW);
   }
-
-  return;
-
-  digitalWrite(PC13, HIGH);
-  delay(1000);
-  digitalWrite(PC13, LOW);
-  delay(1000);
 }

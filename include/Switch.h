@@ -14,3 +14,30 @@
  * You should have received a copy of the GNU General Public License 
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
+#ifndef _SWITCH_H_
+#define _SWITCH_H_
+
+#include <Arduino.h>
+
+#define SWITCH_1            0
+#define SWITCH_2            1
+#define SWITCH_3            2
+#define SWITCH_4            3
+#define SWITCH_5            4
+
+#define SWITCH_PIN_1_1      PB9
+#define SWITCH_PIN_1_2      PB8
+#define SWITCH_PIN_2_1      PB15
+#define SWITCH_PIN_2_2      PB14
+#define SWITCH_PIN_3_1      PB13
+#define SWITCH_PIN_3_2      PB12
+#define SWITCH_PIN_4_1      PA0
+#define SWITCH_PIN_4_2      PA1
+#define SWITCH_PIN_5_1      PA4
+#define SWITCH_PIN_5_2      PA5
+
+void SWITCH_init(void);
+uint8_t SWITCH_check(uint8_t sw);
+
+#endif // _SWITCH_H_
